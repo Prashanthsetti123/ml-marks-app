@@ -15,7 +15,7 @@ def predict():
     prediction = model.predict([[hours]])
 
     return render_template("index.html",
-                           prediction_text=f"Predicted Marks: {prediction[0]:.2f}")
-
+                           prediction_text=f"Predicted Marks: {prediction[0]:.2f}",
+                           hours=hours)
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)

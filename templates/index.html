@@ -6,55 +6,93 @@
     <style>
         body {
             font-family: Arial;
-            background: linear-gradient(to right, #667eea, #764ba2);
+            background: linear-gradient(to right, #4facfe, #00f2fe);
             text-align: center;
-            color: white;
-            margin-top: 100px;
+            margin-top: 80px;
         }
 
         .box {
             background: white;
-            color: black;
             padding: 30px;
-            width: 300px;
+            border-radius: 12px;
+            width: 350px;
             margin: auto;
-            border-radius: 10px;
-            box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
         }
 
-        input {
+        input, button {
             padding: 10px;
-            width: 80%;
             margin: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
         button {
-            padding: 10px 20px;
-            background: #667eea;
+            background: #4facfe;
             color: white;
             border: none;
             cursor: pointer;
         }
 
         button:hover {
-            background: #5a67d8;
+            background: #007bff;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        img {
+            width: 120px;
+            margin-top: 10px;
         }
     </style>
+
+    <script>
+        function clearResult() {
+            document.getElementById("resultBox").classList.add("hidden");
+        }
+    </script>
+
 </head>
 
 <body>
 
-    <div class="box">
-        <h2>🎓 Marks Predictor</h2>
+<div class="box">
 
-        <form action="/predict" method="post">
-            <input type="number" name="hours" placeholder="Enter study hours" required>
-            <br>
-            <button type="submit">Predict</button>
-        </form>
+    <h2>📊 Marks Predictor</h2>
 
-        <h3>{{ prediction_text }}</h3>
+    <form action="/predict" method="post">
+        <input type="number" name="hours" placeholder="Enter study hours"
+               onclick="clearResult()" required>
+        <br>
+        <button type="submit">Predict</button>
+    </form>
+
+    <!-- Result Section -->
+    {% if prediction_text %}
+    <div id="resultBox" class="result">
+
+        <p>✅ You entered: <b>{{ hours }}</b> hours</p>
+
+        <p>🎉 Successfully Predicted!</p>
+
+        <p>{{ prediction_text }}</p>
+
+        <!-- Dancing GIF -->
+        <img src="https://media.giphy.com/media/111ebonMs90YLu/giphy.gif">
+
     </div>
+    {% endif %}
+
+</div>
 
 </body>
 </html>
